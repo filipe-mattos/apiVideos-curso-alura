@@ -1,10 +1,12 @@
 package com.desafio.apiVideos.service;
 
 import com.desafio.apiVideos.Model.Videos;
+import com.desafio.apiVideos.repository.CategoriasRepository;
 import com.desafio.apiVideos.repository.VideosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +16,9 @@ public class VideosService {
     //Injetando a variavel de reository na classe de service
     @Autowired
     private VideosRepository videosRepository;
+
+    @Autowired
+    private CategoriasRepository categoriasRepository;
 
     //Metodo para adicionar um video
     //Se o video ja existir na base de dados ira atualizalo
@@ -31,6 +36,20 @@ public class VideosService {
     //retornando o video se for encontrado ou vazio se n encontrar
     public Optional<Videos> buscarPorId(Long id){
         return videosRepository.findById(id);
+    }
+
+    public List<Videos> buscarPorCategoria(Long idCategoria){
+        System.out.println("idCategoria: " + idCategoria);
+        List<Videos> videos = listarVideos();
+        System.out.println("qtd videos: " + videos.size());
+        List<Videos> aux = new ArrayList<>();
+        for ( int i =0 ; i < videos.size(); i++){
+            if (videos.get(i).getIdCategoria().getIdCategoria().equals(categoriasRepository.getById(idCategoria).getIdCategoria())){
+                aux.add(videos.get(i));
+                System.out.println("Adicionou no aux");
+            }
+        }
+        return aux;
     }
 
     //Metodo que vai deletar o video da base de dados pelo seu id

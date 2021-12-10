@@ -1,66 +1,48 @@
 package com.desafio.apiVideos.Model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.validator.constraints.URL;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Optional;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity //Indicando que essa classe sera uma tabela no banco de dados
-public class Videos {
+public class Videos implements Serializable {
     @Id//indicando que essa variavel sera um id e chave primaria
     @GeneratedValue(strategy = GenerationType.AUTO)//indicando que ela sera de auto incremento
-    private Long id;
+    private Long idVideos;
+
+    @JoinColumn(nullable = false)//Anotação que indica que a chave estrangeira n pode ser nula
+    @ManyToOne//Defino que essa chave estrangeira sera de muitos para um ou seja muitos videos pertencem a uma categoria
+    private Categorias idCategoria;
+
+    private Long testeLong;
 
     @Column(name = "tituloVideo", nullable = false)//indicando que essa variavel tera o nome passado em name como coluna no bd
+    @NotEmpty(message = "O campo de titulo do video não pode ser vazio")
     private String tituloVideo;
 
     @Column(name = "descricao")//indicando que essa variavel tera o nome passado em name como coluna no bd
+    @NotEmpty(message = "O campo de Descricao do video não pode ser vazio")
     private String descricao;
 
     @Column(name = "url", nullable = false)//indicando que essa variavel tera o nome passado em name como coluna no bd
+    @NotEmpty(message = "O campo de url do video não pode ser vazio")
+    @URL(message = "Insira uma url valida")
     private String url;
 
-    public Videos(){
-
-    }
-
-    public Videos(Long id, String tituloVideo, String descricao, String url) {
-        this.id = id;
-        this.tituloVideo = tituloVideo;
-        this.descricao = descricao;
-        this.url = url;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTituloVideo() {
-        return tituloVideo;
-    }
-
-    public void setTituloVideo(String tituloVideo) {
-        this.tituloVideo = tituloVideo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }
