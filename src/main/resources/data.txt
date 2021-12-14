@@ -1,5 +1,0 @@
-INSERT INTO VIDEOS(descricao, titulo_Video, url) VALUES('Teste 1 titulo', 'Teste 1 desc', 'Teste 1 url');
-INSERT INTO VIDEOS(descricao, titulo_Video, url) VALUES('Teste 2 titulo', 'Teste 2 desc', 'Teste 2 url');
-INSERT INTO VIDEOS(descricao, titulo_Video, url) VALUES('Teste 3 titulo', 'Teste 3 desc', 'Teste 3 url');
-INSERT INTO VIDEOS(descricao, titulo_Video, url) VALUES('Teste 4 titulo', 'Teste 4 desc', 'Teste 4 url');
-INSERT INTO VIDEOS(descricao, titulo_Video, url) VALUES('Teste 5 titulo', 'Teste 5 desc', 'Teste 5 url');

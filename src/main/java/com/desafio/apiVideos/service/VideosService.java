@@ -6,6 +6,7 @@ import com.desafio.apiVideos.repository.VideosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,9 @@ public class VideosService {
     //Metodo para adicionar um video
     //Se o video ja existir na base de dados ira atualizalo
     public Videos salvar(Videos video){
+        if (video.getIdCategoria().equals(null)){
+            video.getIdCategoria().setIdCategoria(1L);
+        }
         return videosRepository.save(video);
     }
 
@@ -55,5 +59,16 @@ public class VideosService {
     //Metodo que vai deletar o video da base de dados pelo seu id
     public void removerPorId(Long id){
         videosRepository.deleteById(id);
+    }
+
+    public Videos buscarPorNome(String tituloVideo) {
+        List<Videos> videos = listarVideos();
+        for (int i = 0; i < videos.size(); i++) {
+            System.out.println(videos.get(i).getTituloVideo());
+            if (videos.get(i).getTituloVideo().equals(tituloVideo)){
+                return videos.get(i);
+            }
+        }
+        return null;
     }
 }

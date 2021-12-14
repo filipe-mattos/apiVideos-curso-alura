@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -39,7 +40,13 @@ public class VideosController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Videos> listarVideos(){
-        return videosService.listarVideos();
+            return videosService.listarVideos();
+    }
+
+    @GetMapping("/find")
+    @ResponseStatus(HttpStatus.OK)
+    public Videos findByName(@RequestParam(name = "titulo", required = false) String tituloVideos){
+        return videosService.buscarPorNome(tituloVideos);
     }
 
     //Caso a request seja um get e possua um id sera retornado o video com o mesmo id passado

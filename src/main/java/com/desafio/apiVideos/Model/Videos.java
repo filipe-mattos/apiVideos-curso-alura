@@ -26,9 +26,9 @@ public class Videos implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)//indicando que ela sera de auto incremento
     private Long idVideos;
 
-    @JoinColumn(nullable = false)//Anotação que indica que a chave estrangeira n pode ser nula
+    @JoinColumn()//Anotação que indica que a chave estrangeira n pode ser nula
     @ManyToOne//Defino que essa chave estrangeira sera de muitos para um ou seja muitos videos pertencem a uma categoria
-    private Categorias idCategoria;
+    private Categorias idCategoria = new Categorias(1L,"Livre","#ffffff");
 
     private Long testeLong;
 
