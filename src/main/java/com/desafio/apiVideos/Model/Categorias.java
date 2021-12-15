@@ -29,4 +29,9 @@ public class Categorias {
     @Column(name = "corHexadecimal", nullable = false)
     @NotNull @NotEmpty
     private String cor;
+
+    public Categorias(String nomeCategoria, String cor) {
+        this.nomeCategoria = nomeCategoria;
+        this.cor = cor;
+    }
 }
