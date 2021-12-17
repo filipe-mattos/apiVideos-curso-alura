@@ -30,8 +30,6 @@ public class Videos implements Serializable {
     @ManyToOne//Defino que essa chave estrangeira sera de muitos para um ou seja muitos videos pertencem a uma categoria
     private Categorias idCategoria = new Categorias(1L,"Livre","#ffffff");
 
-    private Long testeLong;
-
     @Column(name = "tituloVideo", nullable = false)//indicando que essa variavel tera o nome passado em name como coluna no bd
     @NotEmpty(message = "O campo de titulo do video não pode ser vazio")
     private String tituloVideo;

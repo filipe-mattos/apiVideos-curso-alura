@@ -1,20 +1,19 @@
 package com.desafio.apiVideos;
 
 import com.desafio.apiVideos.Model.Categorias;
-import com.desafio.apiVideos.repository.CategoriasRepository;
 import com.desafio.apiVideos.service.CategoriasService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CategoriasRepositoryTest {
+public class CategoriasServiceTest {
 
     @Autowired
     private CategoriasService categoriasService;
@@ -42,6 +41,11 @@ public class CategoriasRepositoryTest {
         Categorias categoria = new Categorias("Livre", "#ffffff");
         Categorias categoriaResponse = categoriasService.salvarCategoria(categoria);
         Assert.assertNotNull(categoriasService.buscarPorId(categoriaResponse.getIdCategoria()));
+    }
+
+    @Test
+    public void deveriaRetornarNullSeNaoEncontrarCategoria(){
+        Assert.assertEquals(Optional.empty(),categoriasService.buscarPorId(100L));
     }
 
     @Test

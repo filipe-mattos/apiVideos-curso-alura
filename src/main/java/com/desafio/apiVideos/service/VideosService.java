@@ -43,9 +43,7 @@ public class VideosService {
     }
 
     public List<Videos> buscarPorCategoria(Long idCategoria){
-        System.out.println("idCategoria: " + idCategoria);
         List<Videos> videos = listarVideos();
-        System.out.println("qtd videos: " + videos.size());
         List<Videos> aux = new ArrayList<>();
         for ( int i =0 ; i < videos.size(); i++){
             if (videos.get(i).getIdCategoria().getIdCategoria().equals(categoriasRepository.getById(idCategoria).getIdCategoria())){
