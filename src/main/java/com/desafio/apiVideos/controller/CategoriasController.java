@@ -2,10 +2,14 @@ package com.desafio.apiVideos.controller;
 
 import com.desafio.apiVideos.Model.Categorias;
 import com.desafio.apiVideos.Model.Videos;
+import com.desafio.apiVideos.repository.CategoriasRepository;
 import com.desafio.apiVideos.service.CategoriasService;
 import com.desafio.apiVideos.service.VideosService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -31,14 +36,23 @@ public class CategoriasController {
 
     @Autowired
     private VideosService videosService;
+    
+    @Autowired
+    private CategoriasRepository categoriasRepository;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Categorias> listarCategorias(){
-        return categoriasService.listarCategorias();
+    public Page<Categorias> listarCategorias(@RequestParam(required = false) String nomeCategoria,
+                                             @PageableDefault(page=0, size = 5) Pageable paginacao){
+
+        if(nomeCategoria == null){
+            return categoriasRepository.findAll(paginacao);
+        }else{
+            return categoriasRepository.findByNomeCategoria(nomeCategoria, paginacao);
+        }
     }
 
     @GetMapping("/{id}")
