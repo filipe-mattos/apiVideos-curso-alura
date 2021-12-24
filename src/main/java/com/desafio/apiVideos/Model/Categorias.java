@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class Categorias {
 
     @Id//indicando que essa variavel sera um id e chave primaria
-    @GeneratedValue(strategy = GenerationType.AUTO)//indicando que ela sera de auto incremento
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//indicando que ela sera de auto incremento
     private Long idCategoria;
 
     @Column(name = "nomeCategoria", nullable = false)

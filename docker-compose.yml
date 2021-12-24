@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: api-videos
+    image: filipemattos/api-videos-backend:2.0
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresqldb
+    networks:
+      - production-network
+  postgresqldb:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=apiVideos
+    networks:
+      - production-network
+networks:
+  production-network:
+    driver: bridge

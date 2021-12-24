@@ -23,7 +23,7 @@ import java.util.Optional;
 @Entity //Indicando que essa classe sera uma tabela no banco de dados
 public class Videos implements Serializable {
     @Id//indicando que essa variavel sera um id e chave primaria
-    @GeneratedValue(strategy = GenerationType.AUTO)//indicando que ela sera de auto incremento
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//indicando que ela sera de auto incremento
     private Long idVideos;
 
     @JoinColumn()//Anotação que indica que a chave estrangeira n pode ser nula
