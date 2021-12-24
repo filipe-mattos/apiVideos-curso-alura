@@ -2,10 +2,15 @@ package com.desafio.apiVideos.controller;
 
 import com.desafio.apiVideos.Model.Categorias;
 import com.desafio.apiVideos.Model.Videos;
+import com.desafio.apiVideos.repository.VideosRepository;
 import com.desafio.apiVideos.service.CategoriasService;
 import com.desafio.apiVideos.service.VideosService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +36,9 @@ public class VideosController {
     private VideosService videosService;
 
     @Autowired
+    private VideosRepository videosRepository;
+
+    @Autowired
     private CategoriasService categoriasService;
 
     @Autowired//Injetando a variavel modelMapper no controller
@@ -39,15 +48,16 @@ public class VideosController {
     //Caso a request seja um get ira retornar uma lista com todos os videos na base de dados
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Videos> listarVideos(){
-            return videosService.listarVideos();
+    public Page<Videos> listarVideos(@RequestParam(required = false) String tituloVideo,
+                                     @PageableDefault(page=0, size = 5) Pageable paginacao){
+
+        if(tituloVideo == null){
+            return videosRepository.findAll(paginacao);
+        }else{
+            return videosRepository.findByTituloVideo(tituloVideo, paginacao);
+        }
     }
 
-    @GetMapping("/find")
-    @ResponseStatus(HttpStatus.OK)
-    public Videos findByName(@RequestParam(name = "titulo", required = false) String tituloVideos){
-        return videosService.buscarPorNome(tituloVideos);
-    }
 
     //Caso a request seja um get e possua um id sera retornado o video com o mesmo id passado
     //Caso o video n exista ira lançar um exeption indicando que o video nao foi encontrado

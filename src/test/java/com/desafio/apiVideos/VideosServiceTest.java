@@ -57,21 +57,21 @@ public class VideosServiceTest {
                                 ,Optional.empty());
     }
 
-    @Test
-    @Rollback
-    public void buscarPorNome(){
-        Videos video = new Videos(2L,
-                categoriasService.salvarCategoria(
-                        new Categorias(1L,
-                                "Livre",
-                                "teste")),
-                "tituloVideo",
-                "descricaoVideo",
-                "https://www.google.com.br");
-        videosService.salvar(video);
-        Assert.assertEquals(videosService.buscarPorNome(video.getTituloVideo())
-                ,video);
-    }
+//    @Test
+//    @Rollback
+//    public void buscarPorNome(){
+//        Videos video = new Videos(2L,
+//                categoriasService.salvarCategoria(
+//                        new Categorias(1L,
+//                                "Livre",
+//                                "teste")),
+//                "tituloVideo",
+//                "descricaoVideo",
+//                "https://www.google.com.br");
+//        videosService.salvar(video);
+//        Assert.assertEquals(videosService.buscarPorNome(video.getTituloVideo())
+//                ,video);
+//    }
 
     @Test
     @Rollback
