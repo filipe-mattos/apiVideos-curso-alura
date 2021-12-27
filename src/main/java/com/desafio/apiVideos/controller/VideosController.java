@@ -58,6 +58,12 @@ public class VideosController {
         }
     }
 
+    @GetMapping("/free")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Videos> listaVideosGratuitos(){
+        return videosService.listarVideos();
+    }
+
 
     //Caso a request seja um get e possua um id sera retornado o video com o mesmo id passado
     //Caso o video n exista ira lançar um exeption indicando que o video nao foi encontrado
