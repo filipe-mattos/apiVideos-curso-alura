@@ -61,7 +61,7 @@ public class VideosController {
     @GetMapping("/free")
     @ResponseStatus(HttpStatus.OK)
     public List<Videos> listaVideosGratuitos(){
-        return videosService.listarVideos();
+        return videosService.listarVideosPublicos();
     }
 
 

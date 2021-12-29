@@ -58,4 +58,22 @@ public class VideosService {
         videosRepository.deleteById(id);
     }
 
+    public List<Videos> listarVideosPublicos() {
+        List<Videos> list = videosRepository.findAll();
+        list = buscaVideosLivres(list);
+        if (list.isEmpty()){
+            return null;
+        }
+        return list;
+    }
+
+    private List<Videos> buscaVideosLivres(List<Videos> list) {
+        List<Videos> aux = new ArrayList<>();
+        for (Videos video : list){
+            if (video.getIdCategoria().getNomeCategoria().equals("Publico")){
+                aux.add(video);
+            }
+        }
+        return aux;
+    }
 }
